@@ -1,0 +1,128 @@
+.NavBarItems {
+  background-color: #fff;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.navbar-logo-C {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  width: 13rem;
+}
+
+.navbar-title {
+  font-size: 2rem;
+  color: #6a30dc;
+}
+
+.nav-menu {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  list-style: none;
+  text-align: center;
+  width: 70vw;
+  justify-content: end;
+  margin-bottom: 0;
+}
+
+.nav-links {
+  color: #000;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+}
+
+.nav-links:hover {
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.burgerMenu {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .NavBarItems {
+    position: relative;
+  }
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.8s ease;
+    text-align: center;
+  }
+
+  .nav-menu.active {
+    background: rgba(102, 48, 220, 1);
+    left: 0;
+    opacity: 1;
+    transition: all 0.8s ease;
+    z-index: 1;
+    margin-right: 0;
+  }
+
+  .nav-links {
+    text-align: center;
+    padding: 2rem;
+    width: 95%;
+    display: table;
+    color: #fff;
+    margin: 10px 0;
+  }
+
+  .nav-links:hover{
+      color: #fff;
+  }
+
+  .navbar-logo-C {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(10%, 30%);
+  }
+
+  .burgerMenu {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 45%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .navbar-logo-C {
+    transform: translate(5%, 40%);
+    justify-content: flex-start;
+  }
+  .navbar-logo-C img {
+    width: 45px;
+    height: 45px;
+  }
+  .navbar-title {
+    margin-left: 5px;
+    font-size: 1.7rem;
+  }
+
+  .nav-links{
+      width: 90%;
+  }
+}
