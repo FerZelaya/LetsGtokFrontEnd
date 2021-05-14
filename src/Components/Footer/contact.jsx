@@ -38,7 +38,7 @@ const Contact = () => {
         })
         .then(() => {
           alert(
-            "You have successfully contact us. You'll recieve a confirmation email shortly.",
+            "You have successfully contacted us. You'll recieve a confirmation email shortly.",
           );
           setLoading(false);
         })
