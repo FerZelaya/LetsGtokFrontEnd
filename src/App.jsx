@@ -5,6 +5,7 @@ import NavBar from "./Components/NavBar/navbar";
 import Section1 from "./Components/Body/section1/section1"
 import Section2 from "./Components/Body/section2/section2"
 import Section3 from "./Components/Body/section3/section3"
+import Contact from "./Components/Footer/contact";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Section1/>
       <Section2/>
       <Section3/>
+      <Contact/>
     </div>
   );
 }
