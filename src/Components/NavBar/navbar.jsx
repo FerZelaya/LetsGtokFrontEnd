@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../img/logo.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = () => {
   const [clicked, setClicked] = useState(false)
