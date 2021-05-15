@@ -2,16 +2,44 @@ import React, { useState } from "react";
 import "./contact.css";
 import email from "../../img/correo.png";
 import TextField from "@material-ui/core/TextField";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { db } from "../../firebase";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
+
 const Contact = () => {
+  const classes = useStyles();
   const [state, setState] = useState({
     name: "",
     email: "",
     message: "",
   });
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -26,9 +54,10 @@ const Contact = () => {
     setLoading(true);
 
     if (state.name === "" || state.email === "" || state.message === "") {
-      alert(
-        "There are empty fields in the contact form. Please fill every field.",
-      );
+      setOpen(true);
+      setAlert("Empty Fields!");
+      setError(true);
+      setLoading(false);
     } else {
       db.collection("contacts")
         .add({
@@ -37,10 +66,10 @@ const Contact = () => {
           message: state.message,
         })
         .then(() => {
-          alert(
-            "You have successfully contacted us. You'll recieve a confirmation email shortly.",
-          );
+          setAlert("Thank you! We will be in contact soon.");
+          setOpen(true);
           setLoading(false);
+          setError(false);
         })
         .then(() => {
           setState({
@@ -50,7 +79,10 @@ const Contact = () => {
           });
         })
         .catch((error) => {
+          setAlert("ERROR!");
+          setOpen(true);
           setLoading(false);
+          setError(false);
           alert(error.message);
         });
     }
@@ -102,9 +134,29 @@ const Contact = () => {
             />
           </div>
 
-          <button onClick={handleSubmit} disabled={loading} style={{background: loading && 'rgba(102, 48, 220, 0.2)' }} className="shareButton">
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            style={{ background: loading && "rgba(102, 48, 220, 0.2)" }}
+            className="shareButton"
+          >
             Contact Us
           </button>
+          <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+            <Alert
+              onClose={handleClose}
+              severity={!error ? "success" : "error"}
+            >
+              {alert}
+            </Alert>
+          </Snackbar>
+          <Backdrop
+            className={classes.backdrop}
+            open={open}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </div>
       </div>
     </div>
